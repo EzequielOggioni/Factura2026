@@ -1,0 +1,281 @@
+<div [class]="claseCuerpo">
+
+    <p class="page-title">Comprobante Fiscal — ARCA</p>
+    
+    <div class="factura">
+        <div class="corner corner-tl"></div>
+        <div class="corner corner-tr"></div>
+        <div class="corner corner-bl"></div>
+        <div class="corner corner-br"></div>
+        
+        <div class="inner-border">
+            
+            <!-- ══ CABECERA ══ -->
+            <div class="header">
+                
+                <!-- EMPRESA (izquierda) -->
+                <div class="empresa">
+                    <div class="empresa-nombre">Razón Social S.A.</div>
+                    <div class="empresa-rubro">Comercio — Actividad Principal</div>
+                    <div class="empresa-dato"><strong>CUIT:</strong> 30-00000000-0</div>
+                    <div class="empresa-dato"><strong>Ing. Brutos:</strong> 00-00000000-0</div>
+                    <div class="empresa-dato"><strong>Domicilio:</strong> Av. Corrientes 1234, CABA</div>
+                    <div class="empresa-dato"><strong>Tel.:</strong> (011) 4000-0000</div>
+                    <div class="empresa-dato"><strong>Inicio act.:</strong> 01/01/2000</div>
+                    <div class="empresa-dato" style="margin-top:6px;"><strong>Cond. IVA:</strong> Responsable Inscripto
+                    </div>
+                </div>
+                
+                <!-- TIPO COMPROBANTE (centro) -->
+                <div class="tipo-comprobante">
+                    <select  class="tipo-letra" [(ngModel)]="miFactura.tipo"  (change)="cambiarFondo()">
+                        <option [value]="EtipoFactura.A">A</option>
+                        <option [value]="EtipoFactura.B">B</option>
+                        <option [value]="EtipoFactura.C">C</option>
+                    </select>
+                    <div class="tipo-nombre">Factura</div>
+                    <div class="tipo-cod">Cod. 001</div>
+                </div>
+                
+                <!-- NUMERACIÓN (derecha del centro) -->
+                <div class="numeracion">
+                    <div class="num-label">Punto de Venta</div>
+                    <div class="num-valor">0001</div>
+                    <div class="num-label">Número</div>
+                    <input class="num-valor" type="number" [(ngModel)]="this.miFactura.numero" />
+                    <div class="num-label" style="margin-top:6px;">Fecha de Emisión</div>
+                    <div class="num-fecha">
+                        <span><input type="date" [(ngModel)]="this.miFactura.fecha" /> 
+                        </span>
+                    </div>
+                    <div class="num-label" style="margin-top:8px;">Fecha Vto. Pago</div>
+                    <div class="num-fecha">
+                        <span>&nbsp;</span>&nbsp;/&nbsp;<span>&nbsp;</span>&nbsp;/&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    </div>
+                </div>
+                
+            </div><!-- /header -->
+            
+            <!-- ══ DATOS CLIENTE ══ -->
+            <div class="seccion-cliente">
+                <div class="cliente-bloque">
+                    <div class="seccion-titulo">Datos del Cliente</div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Razón Social / Nombre:</span>
+                        <input class="campo-linea"  type="text" [(ngModel)]="this.miFactura.receptor" /> 
+                    </div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Domicilio:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Localidad:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Provincia:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                </div>
+                <div class="cliente-bloque">
+                    <div class="seccion-titulo">Identificación Fiscal</div>
+                    <div class="campo-fila">
+                        <span class="campo-label">CUIT / DNI:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Cond. IVA:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Cond. de pago:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Referencia:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-print" (click)="this.agregarDetalle()">Agregar detalle</button>
+            
+            <!-- ══ TABLA ÍTEMS ══ -->
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="th-cant">Cant.</th>
+                            <th class="th-unidad">Unidad</th>
+                            <th class="th-desc">Descripción del Producto / Servicio</th>
+                            <th class="th-precio">P. Unitario</th>
+                            <th class="th-bonif">Bonif. %</th>
+                            <th class="th-total">Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Filas con datos de ejemplo -->
+                        <tr>
+                            <td class="td-cant">2</td>
+                            <td class="td-unidad">UN</td>
+                            <td>Producto de ejemplo — descripción breve</td>
+                            <td class="td-precio">$ 1.500,00</td>
+                            <td class="td-bonif">—</td>
+                            <td class="td-total">$ 3.000,00</td>
+                        </tr>
+                        <tr>
+                            <td class="td-cant">1</td>
+                            <td class="td-unidad">KG</td>
+                            <td>Otro ítem — servicio o mercadería</td>
+                            <td class="td-precio">$ 800,00</td>
+                            <td class="td-bonif">10%</td>
+                            <td class="td-total">$ 720,00</td>
+                        </tr>
+                        <!-- Filas vacías para completar a mano -->
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr class="fila-vacia">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- ══ OBSERVACIONES + TOTALES ══ -->
+            <div class="footer-grid">
+                <div class="obs-bloque">
+                    <div class="seccion-titulo">Observaciones</div>
+                    <div class="obs-lineas">
+                        <div class="obs-linea"></div>
+                        <div class="obs-linea"></div>
+                        <div class="obs-linea"></div>
+                        <div class="obs-linea"></div>
+                    </div>
+                </div>
+                <div class="totales-bloque">
+                    <div class="total-fila">
+                        <span class="total-label">Subtotal Neto</span>
+                        <span class="total-valor">{{this.miFactura.neto}}$</span>
+                    </div>
+                    <div class="total-fila">
+                        <span class="total-label">Bonificación</span>
+                        <span class="total-valor">$</span>
+                    </div>
+                    <div class="total-fila">
+                        <span class="total-label">IVA 21%</span>
+                        <span class="total-valor">{{this.miFactura.iva}} $</span>
+                    </div>
+                    <div class="total-fila">
+                        <span class="total-label">IVA 10,5%</span>
+                        <span class="total-valor">$</span>
+                    </div>
+                    <div class="total-fila">
+                        <span class="total-label">Perc. IIBB</span>
+                        <span class="total-valor">$</span>
+                    </div>
+                    <div class="total-fila gran-total">
+                        <span class="total-label">Total</span>
+                        <span class="total-valor">{{this.miFactura.total}} $</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ══ PIE DE FACTURA ══ -->
+            <div class="pie">
+                <div class="pie-bloque">
+                    <div class="seccion-titulo">CAE / CAI</div>
+                    <div class="campo-fila" style="margin-top:4px;">
+                        <span class="campo-label">N°:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                    <div class="campo-fila">
+                        <span class="campo-label">Vto.:</span>
+                        <span class="campo-linea"></span>
+                    </div>
+                </div>
+                <div class="pie-bloque" style="text-align:center;">
+                    <div class="seccion-titulo" style="display:block; text-align:center;">Receptor</div>
+                    <div class="firma-linea"></div>
+                    <div class="firma-label">Recibí Conforme</div>
+                    <div style="margin-top:6px; font-size:7.5px; color:#7a5c2e;">Aclaración / Sello</div>
+                </div>
+                <div class="pie-bloque" style="text-align:center;">
+                    <div class="seccion-titulo" style="display:block; text-align:center;">Emisor</div>
+                    <div class="firma-linea"></div>
+                    <div class="firma-label">Firma Autorizada</div>
+                    <div style="margin-top:6px; font-size:7.5px; color:#7a5c2e;">Aclaración / Sello</div>
+                </div>
+            </div>
+            
+            <!-- ══ LEYENDA ARCA ══ -->
+            <div class="leyenda-afip">
+                Comprobante autorizado por ARCA — Agencia de Recaudación y Control Aduanero &nbsp;|&nbsp; Original al
+                Cliente &nbsp;|&nbsp; www.arca.gob.ar
+            </div>
+            
+        </div><!-- /inner-border -->
+    </div><!-- /factura -->
+    
+    <button class="btn-print" (click)="this.guardar()">⎙ Imprimir / Guardar PDF</button>
+    
+</div>
+    
