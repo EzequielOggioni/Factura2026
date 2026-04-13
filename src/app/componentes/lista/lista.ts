@@ -15,6 +15,7 @@ export class Lista {
   public tipo: String = "text";
   public EtipoFactura = tipoFactura;
 public claseCuerpo:string = 'cuerpo';
+public vacios:Array<number> = new Array(20).fill(0).map((_, i) => i + 1);
 
   constructor() {
 
@@ -26,9 +27,9 @@ public claseCuerpo:string = 'cuerpo';
   }
 
   agregarDetalle() {
-    this.miFactura.items.push( <DetalleFactura>{cantidad:this.miFactura.items.length +1,descripcion:'producto 1',precioUnitario:25000 });
+    this.miFactura.items.push( <DetalleFactura>{cantidad:(this.miFactura.items.length %4)+1 ,descripcion:'producto ' + (this.miFactura.items.length +1).toString() ,precioUnitario:25000 });
     this.miFactura.calcularTotal();
-
+    this.vacios  = Array.from({length: 20 - this.miFactura.items.length}, (_, i) => i + 1);
   }
 
   guardar() {

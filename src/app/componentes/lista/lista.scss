@@ -413,6 +413,8 @@ table {
       &:nth-child(even) {
         background: rgba(200,169,60,.05);
       }
+
+   
     }
 
     td {
@@ -425,6 +427,10 @@ table {
       &:last-child { border-right: none; }
     }
   }
+  
+  .impar{
+          background: rgba(97, 236, 43, 0.733);
+  }
 
   .td-cant,
   .td-bonif { text-align: center; }
@@ -435,6 +441,7 @@ table {
     @include font-display;
   }
 
+  
   .fila-vacia td { height: 24px; }
 }
 

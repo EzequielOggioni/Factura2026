@@ -64,10 +64,13 @@
                         <span class="campo-label">Razón Social / Nombre:</span>
                         <input class="campo-linea"  type="text" [(ngModel)]="this.miFactura.receptor" /> 
                     </div>
-                    <div class="campo-fila">
+                
+                @if (this.miFactura.receptor.toLowerCase() == 'holamundo') {
+                    <div class="campo-fila" >
                         <span class="campo-label">Domicilio:</span>
-                        <span class="campo-linea"></span>
+                        <span class="campo-linea">{{this.miFactura.receptor}}</span>
                     </div>
+                } 
                     <div class="campo-fila">
                         <span class="campo-label">Localidad:</span>
                         <span class="campo-linea"></span>
@@ -105,6 +108,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th class="th-cant"> </th>
                             <th class="th-cant">Cant.</th>
                             <th class="th-unidad">Unidad</th>
                             <th class="th-desc">Descripción del Producto / Servicio</th>
@@ -115,88 +119,31 @@
                     </thead>
                     <tbody>
                         <!-- Filas con datos de ejemplo -->
-                        <tr>
-                            <td class="td-cant">2</td>
-                            <td class="td-unidad">UN</td>
-                            <td>Producto de ejemplo — descripción breve</td>
-                            <td class="td-precio">$ 1.500,00</td>
-                            <td class="td-bonif">—</td>
-                            <td class="td-total">$ 3.000,00</td>
-                        </tr>
-                        <tr>
-                            <td class="td-cant">1</td>
-                            <td class="td-unidad">KG</td>
-                            <td>Otro ítem — servicio o mercadería</td>
-                            <td class="td-precio">$ 800,00</td>
-                            <td class="td-bonif">10%</td>
-                            <td class="td-total">$ 720,00</td>
-                        </tr>
-                        <!-- Filas vacías para completar a mano -->
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr class="fila-vacia">
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
+                         @for( detalle of this.miFactura.items;track detalle;
+                          let i = $index;let odd = $odd; ) {
+                             <tr>
+                                <td  [class]="{'td-cant':true, 'impar': odd}">{{i+1}}</td>
+                                <td [class]="{'td-cant':true, 'impar': odd}">{{detalle.cantidad}}</td>
+                                <td [class]="{'td-unidad':true, 'impar': odd}  ">{{detalle.unidad}}</td>
+                                <td [class]="{'impar': odd}" >{{detalle.descripcion}}</td>
+                                <td [class]="{'td-precio':true, 'impar': odd}  ">{{detalle.precioUnitario}} $</td>
+                                <td [class]="{'td-bonif':true, 'impar': odd}   "> 0 %</td>
+                                <td [class]="{'td-total':true, 'impar': odd}   ">{{detalle.cantidad * detalle.precioUnitario}} $</td>
+                            </tr>
+                         }
+
+                         @for (item of this.vacios; track $index) {
+                            <tr class="fila-vacia">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        }
+                        </tbody>
                 </table>
             </div>
             
