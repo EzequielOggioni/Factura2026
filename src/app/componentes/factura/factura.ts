@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Factura, tipoFactura } from '../../clases/factura';
 import { DetalleFactura } from '../../clases/detalle-factura';
-import { RouterLink } from "@angular/router";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { FacturaService } from '../../servicios/factura-service';
 
 @Component({
@@ -21,16 +21,21 @@ export class FacturaComponent {
   public vacios: Array<number> = new Array(20).fill(0).map((_, i) => i + 1);
 
 
-  constructor(public servicio: FacturaService) { 
+  constructor(public servicio: FacturaService, public activatedRoute:ActivatedRoute, public router:Router) { 
     this.miFactura ={} as Factura;
+    
     
   }
   
   ngOnInit() {
-    this.servicio.obtenerProximoNumero().subscribe(numero => {
-      this.miFactura = new Factura(new Date(),numero, tipoFactura.C, "Consumidor final");
-    });
-  
+    let facturaid =  this.activatedRoute.snapshot.paramMap.get('variable');
+    if(facturaid)
+    {
+       this.servicio.obtenerFactura(Number.parseInt(facturaid)).subscribe({next: t=> t ==null? this.router.navigateByUrl('lista'): this.miFactura =t });
+    }else
+      this.servicio.obtenerProximoNumero().subscribe(numero => {
+        this.miFactura = new Factura(new Date(),numero, tipoFactura.C, "Consumidor final");
+      });
   }
 
   mostrarLetra(valor: tipoFactura): string {

@@ -68,20 +68,20 @@ export class FacturaService {
         obs.next(this.facturas);
       }, 1000); // Simula una demora en la obtención de las facturas
 
-      setTimeout(() => {
-        this.facturas.push(...this.facturas);
-        obs.next(this.facturas);
-      }, 2000);
+      // setTimeout(() => {
+      //   this.facturas.push(...this.facturas);
+      //   obs.next(this.facturas);
+      // }, 2000);
       setTimeout(() => {
         obs.complete();
-      }, 3000);
+      }, 1500);
     });
 
     return respuesta;
   }
 
   public buscarUsuarios(): Observable<Array<User>> {
-    return this.httClient.get<Array<User>>('https://jsonplaceholder.typicode.com/posts')
+    return this.httClient.get<Array<User>>('https://jsonplaceholder.typicode.com/posts');
   }
 
 

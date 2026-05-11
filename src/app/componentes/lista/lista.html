@@ -1,8 +1,5 @@
 @for (factura of facturas | async; track $index) {
-    <div class="factura">
-        <h3>Factura {{ factura.numero }}</h3> Tipo: {{ factura.tipo }} Fecha: {{ factura.fecha | date }} Total: {{ factura.total | currency }}
-    </div>
-
+    <app-item-lista [variabledeentradadelelementohijo]="factura" ></app-item-lista>
 }@empty {
     <h2>No hay facturas disponibles.</h2>
 }

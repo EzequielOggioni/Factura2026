@@ -123,10 +123,10 @@
                           let i = $index;let odd = $odd; ) {
                              <tr>
                                 <td  [class]="{'td-cant':true, 'impar': odd}">{{i+1}}</td>
-                                <td [class]="{'td-cant':true, 'impar': odd}"><input type="number" [(ngModel)]="detalle.cantidad"></td>
+                                <td [class]="{'td-cant':true, 'impar': odd}"><input type="number" [(ngModel)]="detalle.cantidad" (change)="this.miFactura.calcularTotal()"></td>
                                 <td [class]="{'td-unidad':true, 'impar': odd}  ">{{detalle.unidad}}</td>
-                                <td [class]="{'impar': odd}" >{{detalle.descripcion}}</td>
-                                <td [class]="{'td-precio':true, 'impar': odd}  "><input type="number" [(ngModel)]="detalle.precioUnitario"> $</td>
+                                <td [class]="{'impar': odd}" ><input type="text" [(ngModel)]="detalle.descripcion" > </td>
+                                <td [class]="{'td-precio':true, 'impar': odd}  "><input type="number" [(ngModel)]="detalle.precioUnitario" (change)="this.miFactura.calcularTotal()"> $</td>
                                 <td [class]="{'td-bonif':true, 'impar': odd}   "> 0 %</td>
                                 <td [class]="{'td-total':true, 'impar': odd}   ">{{detalle.cantidad * detalle.precioUnitario}} $</td>
                             </tr>

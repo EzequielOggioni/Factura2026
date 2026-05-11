@@ -2,16 +2,15 @@ import { Component, StreamingResourceOptions } from '@angular/core';
 import { Factura, tipoFactura } from '../../clases/factura';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DetalleFactura } from '../../clases/detalle-factura';
 import { RouterLink } from "@angular/router";
 import { FacturaService } from '../../servicios/factura-service';
 import { Observable } from 'rxjs';
 import { User } from '../../clases/user';
-import { Principal } from "../principal/principal";
+import { ItemLista } from "../item-lista/item-lista";
 
 @Component({
   selector: 'app-lista',
-  imports: [CommonModule, FormsModule, RouterLink, ReactiveFormsModule, Principal],
+  imports: [CommonModule, FormsModule, RouterLink, ReactiveFormsModule, ItemLista],
   templateUrl: './lista.html',
   styleUrl: './lista.scss',
 })

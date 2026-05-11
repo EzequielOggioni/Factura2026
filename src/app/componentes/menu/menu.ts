@@ -1,0 +1,18 @@
+import { Component } from '@angular/core';
+import { Router, RouterLink } from "@angular/router";
+
+@Component({
+  selector: 'app-menu',
+  imports: [RouterLink],
+  templateUrl: './menu.html',
+  styleUrl: './menu.scss',
+})
+export class Menu {
+  constructor(public router: Router) {
+  }
+
+    public irA(seccion:string) {
+        this.router.navigateByUrl(seccion);
+
+    }
+}
