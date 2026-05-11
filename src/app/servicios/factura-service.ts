@@ -3,6 +3,7 @@ import { Factura } from '../clases/factura';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../clases/user';
+import  facturajson  from '../JSON/facturas.json';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +61,10 @@ export class FacturaService {
     let respuesta = new Observable<Array<Factura>>(obs => {
       const facturasGuardadas = localStorage.getItem('facturas');
       if (facturasGuardadas) {
-        this.facturas = JSON.parse(facturasGuardadas);
+        // this.facturas = <Array<Factura>> facturajson.map((f: any) => {
+        //   return new Factura(new Date(f.fecha), f.numero, f.tipo, f.receptor);
+        // }
+         this.facturas = JSON.parse(facturasGuardadas);
       }
       else
         this.facturas = [];
