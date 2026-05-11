@@ -1,15 +1,18 @@
-@for (factura of facturas | async; track $index) {
-    <app-item-lista [variabledeentradadelelementohijo]="factura" ></app-item-lista>
-}@empty {
-    <h2>No hay facturas disponibles.</h2>
-}
-
-<a routerLink="/factura">Crear Factura</a>
-<input type="button" value="Ver facturas" (click)="ver()">
-
-@for (users of usuarios | async; track $index) {
+    <input type="text" placeholder="Buscar facturas..." [(ngModel)]="filtro">
+    
+    @for (factura of ((facturas | async)|filtraFactura:filtro) ; track $index) {
+        <app-item-lista [variabledeentradadelelementohijo]="factura" ></app-item-lista>
+    }@empty {
+        <h2>No hay facturas disponibles.</h2>
+    }
+    
+    <a routerLink="/factura">Crear Factura</a>
+    <input type="button" value="Ver facturas" (click)="ver()">
+    
+    <input type="text" placeholder="Buscar facturas..." [(ngModel)]="filtroUsuario">
+@for (users of usuarios | async | fitraUser:filtroUsuario; track $index) {
     <div class="factura">
-        <p>Título: {{ users.title }}</p>
+        <p>Título: {{ users.title }} , {{ users.body }}</p>
     </div>
 
 }@empty {

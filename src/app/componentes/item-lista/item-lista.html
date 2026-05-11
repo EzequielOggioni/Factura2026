@@ -1,5 +1,5 @@
 <div class="factura"> 
         <h4>Factura {{ factura.numero }}</h4> 
-        Tipo: {{ factura.tipo }} - Total: {{ factura.total | currency }} 
+        Tipo:{{ factura.tipo.toString()| tipoFactura}} - Total: {{ factura.total | currency }} 
         <a [routerLink]="'/factura/'+  factura.numero.toString() " >ver</a>
     </div>
