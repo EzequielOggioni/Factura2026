@@ -1,0 +1,13 @@
+@if (this.errorControl?.invalid && this.errorControl?.touched) {
+    @if(this.errorControl?.errors?.['required']) {
+        <i class="error">Este campo es requerido</i>
+    }
+    @if(this.errorControl?.errors?.['email']) {
+        <i class="error">Correo no válido</i>
+    }
+    @if(this.errorControl?.errors?.['minlength']) {
+        <i class="error">La contraseña debe tener al menos 8 caracteres</i>
+    }
+   
+}
+

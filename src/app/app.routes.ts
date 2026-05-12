@@ -6,9 +6,10 @@ import { Principal } from './componentes/principal/principal';
 import { usuariologueadoGuard } from './guardian/usuariologueado-guard';
 import { AdminUsuarios } from './componentes/administrar/admin-usuarios/admin-usuarios';
 import { AdminFacturas } from './componentes/administrar/admin-facturas/admin-facturas';
+import { Registro } from './componentes/registro/registro';
 
 export const routes: Routes = [
-    {path:'lista' , component:Lista},
+    {path:'login' , component:Registro},
     {path:'lista' , component:Lista},
     {path:'error', component: Error},
     {path:'', component:Principal},
@@ -20,7 +21,7 @@ export const routes: Routes = [
         loadChildren: () => [  
             {path: 'usuarios', component: AdminUsuarios},
             {path: 'facturas', component: AdminFacturas}
-        ]
+        ]0
     },  
     {path:'**', component:NotFound}
 ];

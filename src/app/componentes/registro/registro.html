@@ -1,0 +1,43 @@
+
+  
+  <div class="container">
+    <!-- Formulario de Login -->
+    <div id="login" class="form" [ngClass]="{active:activeLogin}">
+      <h2>Login</h2>
+      <input type="text" placeholder="Usuario" required>
+      <input type="password" placeholder="Contraseña" required>
+      <button>Ingresar</button>
+      <div class="toggle">
+        ¿No tienes cuenta? <a (click)="activeLogin = !activeLogin">Regístrate</a>
+      </div>
+    </div>
+
+    <!-- Formulario de Registro -->
+    <div id="register" class="form" [ngClass]="{active:!activeLogin}">
+  
+      <h2>Registro</h2>
+<form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+
+    
+    <input type="text" placeholder="Usuario"  formControlName="username" [ngClass]="{error: this.registroForm.get('username')?.invalid && this.registroForm.get('username')?.touched}" >
+     <app-forms-error [errorControl]="this.registroForm.get('username')"></app-forms-error>
+    
+     <input type="email" placeholder="Correo" formControlName="email" [ngClass]="{error: this.registroForm.get('email')?.invalid && this.registroForm.get('email')?.touched}" >
+    <app-forms-error [errorControl]="this.registroForm.get('email')"></app-forms-error>
+    
+    <input type="password" placeholder="Contraseña" formControlName="password" [ngClass]="{error: this.registroForm.get('password')?.invalid && this.registroForm.get('password')?.touched}" >
+    <app-forms-error [errorControl]="this.registroForm.get('password')"></app-forms-error>
+    
+    <button type="submit" [disabled]="this.registroForm.invalid" >Registrarse</button>
+ 
+    {{this.registroForm.value | json}}
+</form>
+      <div class="toggle">
+        ¿Ya tienes cuenta? <a (click)="activeLogin = !activeLogin">Login</a>
+      </div>
+      <input type="button" (click)="limpiar()" value="Limpiar">
+    </div>
+  </div>
+
+ 
+
