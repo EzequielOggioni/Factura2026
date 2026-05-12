@@ -21,7 +21,7 @@ export const routes: Routes = [
         loadChildren: () => [  
             {path: 'usuarios', component: AdminUsuarios},
             {path: 'facturas', component: AdminFacturas}
-        ]0
+        ]
     },  
     {path:'**', component:NotFound}
 ];
