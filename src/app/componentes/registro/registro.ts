@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { EmailValidator, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormsError } from "../../forms-error/forms-error";
+import { UsuarioService } from '../../servicios/usuario-service';
 
 @Component({
   selector: 'app-registro',
@@ -15,7 +16,7 @@ export class Registro {
   /**
    *
    */
-  constructor(public fb: FormBuilder) {
+  constructor(public fb: FormBuilder, public usuarioService: UsuarioService) {
   }
 
   ngOnInit(): void {
@@ -26,12 +27,16 @@ export class Registro {
       password: ['',[Validators.required, Validators.minLength(8)]]
     })
   }
+  
+  
   onSubmit(){
-    if(this.registroForm.value.username === 'admin'){
-    this.registroForm.get('username')?.setErrors({customError: 'Error personalizado'});
+
+
+   this.usuarioService.validarUsuario(this.registroForm.value).subscribe(
+    (response) => {
+      console.log('Usuario registrado con éxito', response);  
     }
-    console.log(this.registroForm.value);
-   
+   );
   }
 
   limpiar(){

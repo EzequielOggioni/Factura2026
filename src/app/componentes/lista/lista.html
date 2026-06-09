@@ -2,7 +2,7 @@
     
     @for (factura of ((facturas | async)|filtraFactura:filtro) ; track $index) {
         <app-item-lista [variabledeentradadelelementohijo]="factura" ></app-item-lista>
-    }@empty {
+    }@empty {0
         <h2>No hay facturas disponibles.</h2>
     }
     

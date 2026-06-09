@@ -14,7 +14,7 @@ export class TipoFacturaPipe implements PipeTransform {
       case 2:
         return 'Factura C';
       default:
-        return 'Tipo de factura no reconocido' + value.toString() + typeof(value).toString();
+        return 'Tipo de factura no reconocido ' + value.toString() + typeof(value).toString();
     }
   }
 

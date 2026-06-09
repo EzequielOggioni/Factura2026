@@ -58,31 +58,32 @@ export class FacturaService {
   }
 
   public retornarFacturas(): Observable<Array<Factura>> {
-    let respuesta = new Observable<Array<Factura>>(obs => {
-      const facturasGuardadas = localStorage.getItem('facturas');
-      if (facturasGuardadas) {
-        // this.facturas = <Array<Factura>> facturajson.map((f: any) => {
-        //   return new Factura(new Date(f.fecha), f.numero, f.tipo, f.receptor);
-        // }
-         this.facturas = JSON.parse(facturasGuardadas);
-      }
-      else
-        this.facturas = [];
-      setTimeout(() => {
-        obs.next(this.facturas);
-      }, 1000); // Simula una demora en la obtención de las facturas
+    return this.httClient.get<Array<Factura>>('http://10.0.15.144:3000/facturas/');
+  }//   let respuesta = new Observable<Array<Factura>>(obs => {
+  //     const facturasGuardadas = localStorage.getItem('facturas');
+  //     if (facturasGuardadas) {
+  //       // this.facturas = <Array<Factura>> facturajson.map((f: any) => {
+  //       //   return new Factura(new Date(f.fecha), f.numero, f.tipo, f.receptor);
+  //       // }
+  //        this.facturas = JSON.parse(facturasGuardadas);
+  //     }
+  //     else
+  //       this.facturas = [];
+  //     setTimeout(() => {
+  //       obs.next(this.facturas);
+  //     }, 1000); // Simula una demora en la obtención de las facturas
 
-      // setTimeout(() => {
-      //   this.facturas.push(...this.facturas);
-      //   obs.next(this.facturas);
-      // }, 2000);
-      setTimeout(() => {
-        obs.complete();
-      }, 1500);
-    });
+  //     // setTimeout(() => {
+  //     //   this.facturas.push(...this.facturas);
+  //     //   obs.next(this.facturas);
+  //     // }, 2000);
+  //     setTimeout(() => {
+  //       obs.complete();
+  //     }, 1500);
+  //   });
 
-    return respuesta;
-  }
+  //   return respuesta;
+  // }
 
   public buscarUsuarios(): Observable<Array<User>> {
     return this.httClient.get<Array<User>>('https://jsonplaceholder.typicode.com/posts');
