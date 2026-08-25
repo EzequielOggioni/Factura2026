@@ -12,7 +12,7 @@
     <input type="text" placeholder="Buscar facturas..." [(ngModel)]="filtroUsuario">
 @for (users of usuarios | async | fitraUser:filtroUsuario; track $index) {
     <div class="factura">
-        <p>Título: {{ users.title }} , {{ users.body }}</p>
+        <p>Título: {{ users.username  }} , {{ users.email }}</p>
     </div>
 
 }@empty {

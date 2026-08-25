@@ -11,8 +11,8 @@ export class FitraUserPipe implements PipeTransform {
     if (!filtro) return value;
 
     return value.filter((user) => {
-      return user.title.toLowerCase().includes(filtro.toLowerCase()) 
-      || user.body.toLowerCase().includes(filtro.toLowerCase())  ;
+      // return user.title.toLowerCase().includes(filtro.toLowerCase()) 
+      // || user.body.toLowerCase().includes(filtro.toLowerCase())  ;
     });
   }
 

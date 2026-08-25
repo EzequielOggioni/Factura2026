@@ -5,7 +5,7 @@ import { RouterLink, RouterOutlet } from "@angular/router";
   selector: 'app-administrar',
   imports: [RouterLink, RouterOutlet],
   templateUrl: './administrar.html',
-  styleUrl: './administrar.scss',
+  styleUrl: './administrar.scss'
 })
 export class Administrar {
 

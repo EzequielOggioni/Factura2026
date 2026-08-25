@@ -1,0 +1,17 @@
+.google-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  border: 1px solid #dadce0;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  color: #3c4043;
+}
+
+.google-btn:hover {
+  background-color: #f7f8f9;
+}

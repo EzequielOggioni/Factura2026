@@ -3,17 +3,21 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../clases/user';
 
 @Injectable({
-  providedIn: 'root'  
+  providedIn: 'root'
 })
 export class UsuarioService {
- 
-    constructor(public httClient: HttpClient) {
+
+  constructor(public httClient: HttpClient) {
 
   }
 
   validarUsuario(usuario: User) {
-    return this.httClient.post('http://190.49.18.84/usuario/',
-       { usuario });
+    return this.httClient.get('http://localhost:3000/usuario/');
 
+  }
+
+  crearUsuario(usuario: User) {
+    return this.httClient.post('http://localhost:3000/usuario/',
+      { usuario });
   }
 }

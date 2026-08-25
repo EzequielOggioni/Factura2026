@@ -71,4 +71,10 @@
         <span class="item-sub">Cerrar sesión</span>
       </button>
     </div>
+    <input type="checkbox" [checked]="isloading()" class="loading" id="loading" />
+    <input type="button" (click)="cambiar()" value="Cambiar" />
+    {{ isloading() ? "verdadero" : "falso" }}
+    <input type="button" (click)="sumar()" value="Sumar" />
+    <span>{{ contador() }}</span>
+
   </div>

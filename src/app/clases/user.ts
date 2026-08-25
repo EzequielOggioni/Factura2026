@@ -1,13 +1,11 @@
 export class User {
-    public id: number;
-    public userId: string;
-    public title: string;
-    public body: string;
-    constructor(id: number, userId: string, title: string, body: string) {
+    public id: string='';
+    public username: string='';
+    public email: string='';
+    public foto: string='';
+    constructor(id: string) {
         this.id = id;
-        this.userId = userId;
-        this.title = title;
-        this.body = body;
+       
     }
 
 }

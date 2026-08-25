@@ -7,11 +7,14 @@ import { usuariologueadoGuard } from './guardian/usuariologueado-guard';
 import { AdminUsuarios } from './componentes/administrar/admin-usuarios/admin-usuarios';
 import { AdminFacturas } from './componentes/administrar/admin-facturas/admin-facturas';
 import { Registro } from './componentes/registro/registro';
+import { Singin } from './componentes/singin/singin';
 
 export const routes: Routes = [
     {path:'login' , component:Registro},
+    {path:'singin' , component:Singin},
     {path:'lista' , component:Lista},
     {path:'error', component: Error},
+    {path:'registro', component: Registro},
     {path:'', component:Principal},
     {path:'factura', loadComponent: () => import('./componentes/factura/factura').then(t=> t.FacturaComponent) },
     {path:'factura/:variable', loadComponent: () => import('./componentes/factura/factura').then(t=> t.FacturaComponent) },

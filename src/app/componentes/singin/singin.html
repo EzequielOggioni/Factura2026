@@ -1,0 +1,24 @@
+<p>registrarse</p>
+
+<div class="container">
+    <!-- Formulario de Login -->
+    <div id="login" class="form">
+
+        <button type="button" class="google-btn" (click)="this.conectarConGoogle()">
+            <img src="https://gstatic.com" alt="Google" />
+            <span>Loguear con Google</span>
+        </button>
+
+        <h2>Registro</h2>
+        <input type="text" placeholder="Nombre" required
+            [(ngModel)]="this.username" required>
+        <input type="email" placeholder="Correo" required
+            [(ngModel)]="this.email" required>
+        <input type="password" placeholder="Contraseña"
+            [(ngModel)]="this.password" required>
+        <input type="file" placeholder="Foto de perfil"
+            (change)="this.Subirfoto($event)">
+        <img [src]=" this.foto()" alt="Foto de perfil">
+        {{this.foto() }}
+        <button (click)="registrarseConMail()">Registrar</button>
+    </div>
