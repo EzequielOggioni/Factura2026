@@ -8,6 +8,7 @@ import { AdminUsuarios } from './componentes/administrar/admin-usuarios/admin-us
 import { AdminFacturas } from './componentes/administrar/admin-facturas/admin-facturas';
 import { Registro } from './componentes/registro/registro';
 import { Singin } from './componentes/singin/singin';
+import { Foro } from './componentes/foro/foro';
 
 export const routes: Routes = [
     {path:'login' , component:Registro},
@@ -15,6 +16,7 @@ export const routes: Routes = [
     {path:'lista' , component:Lista},
     {path:'error', component: Error},
     {path:'registro', component: Registro},
+    {path:'foro', component: Foro},
     {path:'', component:Principal},
     {path:'factura', loadComponent: () => import('./componentes/factura/factura').then(t=> t.FacturaComponent) },
     {path:'factura/:variable', loadComponent: () => import('./componentes/factura/factura').then(t=> t.FacturaComponent) },

@@ -1,0 +1,16 @@
+@for (mensaje of mensajesForo(); track mensaje) {
+    <div class="mensaje">
+        <div class="nombre-usuario">{{mensaje!.Usuario}}</div>
+        <div class="fecha">{{mensaje!.Fecha | date:'short'}}</div>
+        <div class="categoria">{{mensaje!.Categoria}}</div>
+        <div class="contenido">{{mensaje!.Mensaje}}</div>
+    </div>
+}
+
+<p>foro works!</p>
+<input type="text" [(ngModel)]="mensajeForo!.Usuario" placeholder="Nombre de usuario">
+<input type="text" [(ngModel)]="mensajeForo!.Mensaje" placeholder="Mensaje">
+<input type="text" [(ngModel)]="mensajeForo!.Categoria" placeholder="Categoría">
+
+
+<button (click)="enviar()" >Enviar</button>
