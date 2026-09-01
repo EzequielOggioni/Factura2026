@@ -1,0 +1,161 @@
+// foro.scss
+// Estilos para el foro: encabezado, filas tipo "grilla" (row/col-N),
+// formulario de envío y botones de acción.
+
+:host {
+  display: block;
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #1f2937;
+}
+
+p {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+// ---------- Grilla de mensajes ----------
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+}
+
+// Sistema de columnas simple, base 12 (como Bootstrap)
+%col-base {
+  min-width: 0; // permite que el texto largo trunque en vez de romper el layout
+  overflow-wrap: break-word;
+}
+
+.col-1 {
+  @extend %col-base;
+  flex: 0 0 8.333%;
+  font-weight: 600;
+  color: #374151;
+}
+
+.col-2 {
+  @extend %col-base;
+  flex: 0 0 16.666%;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.col-4 {
+  @extend %col-base;
+  flex: 1 1 33.333%;
+  color: #111827;
+}
+
+// La columna de acciones (Modificar/Borrar) se alinea a la derecha
+.acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+// ---------- Formulario ----------
+
+.formulario {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+input[type='text'] {
+  padding: 0.55rem 0.8rem;
+  margin: 0.3rem 0.5rem 0.3rem 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  }
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+}
+
+// ---------- Botones ----------
+
+button {
+  padding: 0.55rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+
+  &:active {
+    opacity: 0.85;
+  }
+}
+
+.btn-primary {
+  background: #6366f1;
+  color: #fff;
+
+  &:hover {
+    background: #4f46e5;
+  }
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+
+  &:hover {
+    background: #d1d5db;
+  }
+}
+
+// Botones dentro de cada fila (Modificar / Borrar)
+.btn-edit {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  background: #e0e7ff;
+  color: #3730a3;
+
+  &:hover {
+    background: #c7d2fe;
+  }
+}
+
+.btn-delete {
+  padding: 0.35rem 0.7rem;
+  font-size: 0.8rem;
+  background: #fee2e2;
+  color: #991b1b;
+
+  &:hover {
+    background: #fecaca;
+  }
+}

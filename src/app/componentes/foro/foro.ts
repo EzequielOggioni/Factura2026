@@ -13,22 +13,28 @@ import firebaseConfig from '../../JSON/firebaseConfig.json';
 })
 export class Foro implements OnInit, OnDestroy {
 
+  public app = initializeApp(firebaseConfig);
+  public db = getFirestore(this.app);
+
   public mensajeForo: mensajeForo = {
     Categoria: '',
     Usuario: '',
     Mensaje: '',
     Fecha: new Date()
   } as unknown as mensajeForo;
+
   private docRefModifica: DocumentReference | null = null;
   public modificando: WritableSignal<boolean> = signal(false);
+  
   public mensajesForo: WritableSignal<mensajeForo[]> = signal<mensajeForo[]>([]);
 
   private unsubscribe: Unsubscribe | null = null;
 
   ngOnInit(): void {
 
-    this.unsubscribe = onSnapshot(query(collection(this.db, 'MensajesForo'), orderBy('Fecha', 'desc'))
-      , (datos: any) => {
+    this.unsubscribe = onSnapshot(query(collection(this.db, 'MensajesForo'),
+      where('Fecha', '>=', new Date(new Date().setDate(new Date().getDate() - 90))), 
+      orderBy('Fecha', 'desc')), (datos) => {
         this.mensajesForo.set(datos.docs.map((docSnap: any) => {
           const data = docSnap.data() as any;
           return {
@@ -38,18 +44,14 @@ export class Foro implements OnInit, OnDestroy {
           } as mensajeForo;
         }));
       });
-
-
   }
-  // Initialize Firebase
-  public app = initializeApp(firebaseConfig);
-  public db = getFirestore(this.app);
-
+ 
   public async enviar() {
     if (this.mensajeForo) {
       try {
         this.mensajeForo.Fecha = new Date();
         let docRef = await addDoc(collection(this.db, "MensajesForo"), this.mensajeForo);
+        docRef.id
         this.mensajeForo = {
           Categoria: '',
           Usuario: '',
@@ -59,11 +61,9 @@ export class Foro implements OnInit, OnDestroy {
       } catch (e) {
         console.error("Error adding document: ", e);
       }
-
     } else {
       console.error("No hay mensaje para enviar.");
     }
-
   }
 
   public borrar(id: string) {
@@ -76,11 +76,13 @@ export class Foro implements OnInit, OnDestroy {
       });
     }
   }
+
   modifica(id: string) {
     this.docRefModifica = doc(this.db, "MensajesForo", id);
-    this.mensajeForo = this.mensajesForo().filter(m => m.id == id)[0];
+    this.mensajeForo = { ...this.mensajesForo().filter(m => m.id == id)[0] };
     this.modificando.set(true);
   }
+
   modificar() {
     updateDoc(this.docRefModifica!, { ...this.mensajeForo, FechaModificacion: new Date() }).then(() => {
       this.modificando.set(false);

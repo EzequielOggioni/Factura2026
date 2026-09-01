@@ -1,25 +1,26 @@
+<p>Mensajes Varios</p>
 @for (mensaje of mensajesForo(); track mensaje) {
     <div class="row">
         <div class="col-1">{{mensaje!.Usuario}}</div>
         <div class="col-2">{{mensaje!.Fecha | date:'short'}}</div>
         <div class="col-1">{{mensaje!.Categoria}}</div>
         <div class="col-4">{{mensaje!.Mensaje}}</div>
-        <div class="col-2">
-            <button (click)="modifica(mensaje!.id)">Modificar</button>
-            <button (click)="borrar(mensaje!.id)">Borrar</button>
+        <div class="col-2 acciones">
+            <button class="btn-edit" (click)="modifica(mensaje!.id)">Modificar</button>
+            <button class="btn-delete" (click)="borrar(mensaje!.id)">Borrar</button>
         </div>
     </div>
 }
-
-<p>foro works!</p>
-<input type="text" [(ngModel)]="mensajeForo!.Usuario" placeholder="Nombre de usuario">
-<input type="text" [(ngModel)]="mensajeForo!.Mensaje" placeholder="Mensaje">
-<input type="text" [(ngModel)]="mensajeForo!.Categoria" placeholder="Categoría">
-
-@if (this.modificando()) {
-    <button (click)="modificar()" >Enviar</button>
-    <button (click)="this.modificando.set(false); mensajeForo = { ...this.mensajeForo }" >cancelar</button>
-
-}  @else{
-    <button (click)="enviar()" >Enviar</button>
-}
+ 
+<div class="formulario">
+    <input type="text" [(ngModel)]="mensajeForo!.Usuario" placeholder="Nombre de usuario">
+    <input type="text" [(ngModel)]="mensajeForo!.Mensaje" placeholder="Mensaje">
+    <input type="text" [(ngModel)]="mensajeForo!.Categoria" placeholder="Categoría">
+ 
+    @if (this.modificando()) {
+        <button class="btn-primary" (click)="modificar()">Guardar</button>
+        <button class="btn-secondary" (click)="this.modificando.set(false); mensajeForo = { ...this.mensajeForo }">cancelar</button>
+    } @else {
+        <button class="btn-primary" (click)="enviar()">Enviar</button>
+    }
+</div>
