@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { initializeApp } from '@firebase/app';
 import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { UsuarioService } from '../../servicios/usuario-service';
+import firebaseConfig from '../../JSON/firebaseConfig.json';
 
 @Component({
   selector: 'app-singin',
@@ -19,21 +20,11 @@ export class Singin {
   public foto: WritableSignal<string | null> = signal<string | null>(null);
 
 
-  public firebaseConfig = {
-    apiKey: "AIzaSyAgSPd27boYs6ESA48XmWnFWEi-w-FTb5M",
-    authDomain: "beltran-e130d.firebaseapp.com",
-    projectId: "beltran-e130d",
-    storageBucket: "beltran-e130d.firebasestorage.app",
-    messagingSenderId: "418836104952",
-    appId: "1:418836104952:web:65967f6e0c6d1a63a51d0d",
-    measurementId: "G-PWQJTKJQC1"
-  };
-
   constructor(public usersrv: UsuarioService) {
   }
 
   registrarseConMail() {
-    const app = initializeApp(this.firebaseConfig);
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     createUserWithEmailAndPassword(auth, this.email, this.password)
@@ -62,7 +53,7 @@ export class Singin {
   }
 
   conectarConGoogle() {
-    const app = initializeApp(this.firebaseConfig);
+    const app = initializeApp(firebaseConfig);
     let googleAuthProvider = new GoogleAuthProvider();
     const auth = getAuth(app);
     signInWithPopup(auth, googleAuthProvider).then((result) => {

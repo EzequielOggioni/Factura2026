@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit, signal, WritableSignal } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore, query, orderBy, Unsubscribe, onSnapshot } from "firebase/firestore";
+import firebaseConfig from '../../JSON/firebaseConfig.json';
 
 @Component({
   selector: 'app-foro',
@@ -23,16 +24,7 @@ export class Foro implements OnInit, OnDestroy {
 
   private unsubscribe: Unsubscribe | null = null;
 
-  public firebaseConfig = {
-    apiKey: "AIzaSyAgSPd27boYs6ESA48XmWnFWEi-w-FTb5M",
-    authDomain: "beltran-e130d.firebaseapp.com",
-    projectId: "beltran-e130d",
-    storageBucket: "beltran-e130d.firebasestorage.app",
-    messagingSenderId: "418836104952",
-    appId: "1:418836104952:web:65967f6e0c6d1a63a51d0d",
-    measurementId: "G-PWQJTKJQC1"
-  };
-
+  
   /**
    *
    */
@@ -57,7 +49,7 @@ export class Foro implements OnInit, OnDestroy {
 
   }
   // Initialize Firebase
-  public app = initializeApp(this.firebaseConfig);
+  public app = initializeApp(firebaseConfig);
   public db = getFirestore(this.app);
 
   public async enviar() {
