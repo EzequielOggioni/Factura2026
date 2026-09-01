@@ -1,9 +1,13 @@
 @for (mensaje of mensajesForo(); track mensaje) {
-    <div class="mensaje">
-        <div class="nombre-usuario">{{mensaje!.Usuario}}</div>
-        <div class="fecha">{{mensaje!.Fecha | date:'short'}}</div>
-        <div class="categoria">{{mensaje!.Categoria}}</div>
-        <div class="contenido">{{mensaje!.Mensaje}}</div>
+    <div class="row">
+        <div class="col-1">{{mensaje!.Usuario}}</div>
+        <div class="col-2">{{mensaje!.Fecha | date:'short'}}</div>
+        <div class="col-1">{{mensaje!.Categoria}}</div>
+        <div class="col-4">{{mensaje!.Mensaje}}</div>
+        <div class="col-2">
+            <button (click)="modifica(mensaje!.id)">Modificar</button>
+            <button (click)="borrar(mensaje!.id)">Borrar</button>
+        </div>
     </div>
 }
 
@@ -12,5 +16,10 @@
 <input type="text" [(ngModel)]="mensajeForo!.Mensaje" placeholder="Mensaje">
 <input type="text" [(ngModel)]="mensajeForo!.Categoria" placeholder="Categoría">
 
+@if (this.modificando()) {
+    <button (click)="modificar()" >Enviar</button>
+    <button (click)="this.modificando.set(false); mensajeForo = { ...this.mensajeForo }" >cancelar</button>
 
-<button (click)="enviar()" >Enviar</button>
+}  @else{
+    <button (click)="enviar()" >Enviar</button>
+}
