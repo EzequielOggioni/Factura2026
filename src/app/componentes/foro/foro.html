@@ -1,3 +1,7 @@
+<p>descargar archivo</p>
+<input type="button" (click)="generateTxtFile('mensajes.csv', mensajesForo().
+map(( m,i) =>   i==0?'Usuario;fecha;categoria;mensaje\n'+`${m.Usuario};${ datepipe.transform(m.Fecha ,'short')};${m.Categoria};${m.Mensaje}`:`${m.Usuario};${ datepipe.transform(m.Fecha ,'short')};${m.Categoria};${m.Mensaje}`).join('\n'))" value="Descargar">
+
 <p>Mensajes Varios</p>
 @for (mensaje of mensajesForo(); track mensaje) {
     <div class="row">
