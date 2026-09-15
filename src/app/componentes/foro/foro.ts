@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore, query, orderBy, Unsubscribe, onSnapshot, deleteDoc, getDoc, where, getDocs, doc, DocumentReference, updateDoc } from "firebase/firestore";
 import firebaseConfig from '../../JSON/firebaseConfig.json';
+import chartjs from 'chart.js/auto';
 
 @Component({
   selector: 'app-foro',
@@ -17,7 +18,7 @@ export class Foro implements OnInit, OnDestroy {
   public app = initializeApp(firebaseConfig);
   public db = getFirestore(this.app);
 
-  public datepipe:any  = inject(DatePipe);
+  public datepipe: any = inject(DatePipe);
 
   public mensajeForo: mensajeForo = {
     Categoria: '',
@@ -28,6 +29,7 @@ export class Foro implements OnInit, OnDestroy {
 
   private docRefModifica: DocumentReference | null = null;
   public modificando: WritableSignal<boolean> = signal(false);
+  public sacar: WritableSignal<boolean> = signal(true);
 
   public mensajesForo: WritableSignal<mensajeForo[]> = signal<mensajeForo[]>([]);
 
@@ -45,7 +47,9 @@ export class Foro implements OnInit, OnDestroy {
             ...data,
             Fecha: data.Fecha?.toDate ? data.Fecha.toDate() : data.Fecha,
           } as mensajeForo;
-        }));
+        })
+        );
+        this.dibujar(this.mensajesForo());
       });
   }
 
@@ -120,7 +124,35 @@ export class Foro implements OnInit, OnDestroy {
     document.body.removeChild(link);
     URL.revokeObjectURL(link.href);
 
+
+  }
+
+  dibujar(mensajes: mensajeForo[]) {
+
+    let datos = {
+      labels: mensajes.filter((m, index, self) => self.findIndex(t => t.Usuario === m.Usuario) === index).map(m => m.Usuario),
+      datasets: [{
+        label: 'Mensajes por usuario',
+        data: mensajes.filter((m, index, self) => self.findIndex(t => t.Usuario === m.Usuario) === index).map(m => mensajes.filter(t => t.Usuario === m.Usuario).length),
+      }]
+    };
+
+    const pieConfig = {
+      type: 'pie' as const,
+      data: datos
+    };
+
+    new chartjs(document.getElementById('myChart') as HTMLCanvasElement, pieConfig);
     
+  
+    const barConfig = {
+      type: 'line' as const,
+      data: datos
+    };
+
+    new chartjs(document.getElementById('myChart2') as HTMLCanvasElement, barConfig);
+    
+  
   }
 
 
