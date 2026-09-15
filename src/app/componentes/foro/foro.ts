@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { initializeApp } from "firebase/app";
 import { addDoc, collection, getFirestore, query, orderBy, Unsubscribe, onSnapshot, deleteDoc, getDoc, where, getDocs, doc, DocumentReference, updateDoc } from "firebase/firestore";
 import firebaseConfig from '../../JSON/firebaseConfig.json';
-import chartjs from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-foro',
@@ -15,7 +15,11 @@ import chartjs from 'chart.js/auto';
 })
 export class Foro implements OnInit, OnDestroy {
 
+  public myChart1!: Chart;
+  public myChart2!: Chart;
+
   public app = initializeApp(firebaseConfig);
+
   public db = getFirestore(this.app);
 
   public datepipe: any = inject(DatePipe);
@@ -29,7 +33,8 @@ export class Foro implements OnInit, OnDestroy {
 
   private docRefModifica: DocumentReference | null = null;
   public modificando: WritableSignal<boolean> = signal(false);
-  public sacar: WritableSignal<boolean> = signal(true);
+  public dibujado: boolean = false;
+
 
   public mensajesForo: WritableSignal<mensajeForo[]> = signal<mensajeForo[]>([]);
 
@@ -142,18 +147,26 @@ export class Foro implements OnInit, OnDestroy {
       data: datos
     };
 
-    new chartjs(document.getElementById('myChart') as HTMLCanvasElement, pieConfig);
-    
-  
+
+
     const barConfig = {
-      type: 'line' as const,
+      type: 'bar' as const,
       data: datos
     };
 
-    new chartjs(document.getElementById('myChart2') as HTMLCanvasElement, barConfig);
-    
-  
-  }
+    if (this.dibujado) {
+      this.myChart1.data = pieConfig.data;
+      this.myChart2.data = barConfig.data;
 
+    }
+    else {
+      this.myChart1 = new Chart(document.getElementById('myChart') as HTMLCanvasElement, pieConfig);
+      this.myChart2 = new Chart(document.getElementById('myChart2') as HTMLCanvasElement, barConfig);
+    }
+
+    this.myChart1.update();
+    this.myChart2.update();
+    this.dibujado = true;
+  }
 
 }
